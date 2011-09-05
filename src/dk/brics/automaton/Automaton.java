@@ -120,6 +120,9 @@ public class Automaton implements Serializable, Cloneable {
 	
 	/** Selects whether operations may modify the input automata (default: <code>false</code>). */
 	static boolean allow_mutation = false;
+
+        /** Caches the isDebug state */
+        static Boolean isDebug = null;
 	
 	/** 
 	 * Constructs a new automaton that accepts the empty language.
@@ -136,7 +139,10 @@ public class Automaton implements Serializable, Cloneable {
 	}
 	
 	boolean isDebug() {
-		return System.getProperty("dk.brics.automaton.debug") != null;
+		if (isDebug == null) {
+			isDebug = Boolean.valueOf(System.getProperty("dk.brics.automaton.debug") != null);
+		}
+		return isDebug.booleanValue();
 	}
 	
 	/** 
